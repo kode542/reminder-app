@@ -11,11 +11,44 @@
     </div>
   <% end %>
 
-  <%= f.text_field :title %>
-  <%= f.text_area :description %>
+  <div>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </div>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="uk-margin-top">
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </div>
+
+  <div class="uk-margin-top">
+    <%= f.label :month_selection %><br />
+    <%= f.select :month_selection, options_for_months, { :prompt => 'Select month' }, class: "uk-select" %>
+  </div>
+
+  <div class="uk-margin-top">
+    <%= f.label :day_selection %><br />
+    <%= f.select :day_selection, options_for_days, { :prompt => 'Select day' }, class: "uk-select" %>
+  </div>
+
+  <div class="uk-margin-top">
+    <%= f.label :hour_selection %><br />
+    <%= f.select :hour_selection, options_for_hours, { :prompt => 'Select hour' }, class: "uk-select" %>
+  </div>
+
+  <div class="uk-margin-top">
+    <%= f.label :minute_selection %><br />
+    <%= f.select :minute_selection, options_for_minutes, { :prompt => 'Select minute' }, class: "uk-select" %>
+  </div>
+
+  <div class="uk-margin-top">
+    <%= f.label :timezone %><br />
+    <%= f.select :timezone, options_for_timezones, { :prompt => 'Select timezone' }, class: "uk-select" %>
+  </div>
+
+
+  <div class="actions uk-margin-top">
+    <%= f.submit 'Submit', class: "uk-button uk-button-primary" %>
   </div>
 <% end %>
 

@@ -24,6 +24,10 @@ class RemindersController < ApplicationController
   # POST /reminders
   # POST /reminders.json
   def create
+    # Process fields from the form to create a date
+    reminder_date = params_to_date( reminder_params )
+    reminder_params = {reminder_params[:title], reminder_params[:description], reminder_date}
+
     @reminder = current_user.reminders.new(reminder_params)
 
     respond_to do |format|
@@ -69,6 +73,7 @@ class RemindersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def reminder_params
-      params.fetch(:reminder, {}).permit(:title, :description)
+      # params.fetch(:reminder, {}).permit(:title, :description)
+      params.fetch(:reminder, {}).permit(:title, :description, :month_selection, :day_selection, :hour_selection, :minute_selection)
     end
 end
