@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_17_194423) do
+ActiveRecord::Schema.define(version: 2020_09_19_190858) do
 
   create_table "reminders", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -19,6 +19,11 @@ ActiveRecord::Schema.define(version: 2020_09_17_194423) do
     t.datetime "date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "start_from"
+    t.integer "day"
+    t.string "hour"
+    t.string "minute"
+    t.string "timezone"
     t.index ["user_id"], name: "index_reminders_on_user_id"
   end
 

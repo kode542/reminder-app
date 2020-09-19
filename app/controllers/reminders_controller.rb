@@ -25,10 +25,13 @@ class RemindersController < ApplicationController
   # POST /reminders.json
   def create
     # Process fields from the form to create a date
-    reminder_date = params_to_date( reminder_params )
-    reminder_params = {reminder_params[:title], reminder_params[:description], reminder_date}
+    reminder_date = helpers.format_date( reminder_params )
+    new_params = {"title" => reminder_params["title"], "description" => reminder_params["description"], "date" => reminder_date}
 
-    @reminder = current_user.reminders.new(reminder_params)
+    Rails.logger.debug("My object: #{new_params}")
+    @reminder = current_user.reminders.new(new_params)
+
+    ReminderJob.perform_now(reminder_params["title"], reminder_params["description"], reminder_date, current_user.email)
 
     respond_to do |format|
       if @reminder.save
@@ -74,6 +77,6 @@ class RemindersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def reminder_params
       # params.fetch(:reminder, {}).permit(:title, :description)
-      params.fetch(:reminder, {}).permit(:title, :description, :month_selection, :day_selection, :hour_selection, :minute_selection)
+      params.fetch(:reminder, {}).permit(:title, :description, :month_selection, :day_selection, :hour_selection, :minute_selection, :timezone)
     end
 end

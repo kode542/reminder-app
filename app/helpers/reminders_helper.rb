@@ -23,21 +23,21 @@ module RemindersHelper
     end
 
 
-    def params_to_date( params )
+    def format_date( params )
         # Set Reminder timezone
-        Time.zone = params[ :timezone ]
+        timezone = TimeZone.new(params[ :timezone ]).formatted_offset
 
         days_in_month = Time::COMMON_YEAR_DAYS_IN_MONTH
 
-        current_year = DateTime.zone.current.year
-        current_month = DateTime.zone.current.month
-        current_day = DateTime.zone.current.day
-        current_hour = DateTime.zone.current.hour
-        current_minute = DateTime.zone.current.minute
+        current_year = DateTime.current.year
+        current_month = DateTime.current.month
+        current_day = DateTime.current.day
+        current_hour = DateTime.current.hour
+        current_minute = DateTime.current.minute
 
-        reminder_day = params[ :day_selection ]
-        reminder_hour = params[ :hour_selection ]
-        reminder_minute = params[ :minute_selection ]
+        reminder_day = params[ :day_selection ].to_i
+        reminder_hour = params[ :hour_selection ].to_i
+        reminder_minute = params[ :minute_selection ].to_i
 
         beginning_of_month = params[ :month_selection ] == 'day_of_month'
         end_of_month = params[ :month_selection ] == 'last_day_of_month'
@@ -48,13 +48,13 @@ module RemindersHelper
             if reminder_day <= days_in_month[ current_month ] #Reminder day should not exceed the number of days in the current month
 
                 if reminder_minute > current_minute + 10 || reminder_hour > current_hour || reminder_day > current_day #Set Reminder for this month (At least a 10 minute headstart for the job to run)
-                    reminder_datetime = DateTime.new( current_year, current_month, reminder_day, reminder_hour, reminder_minute, 00 )
+                    reminder_datetime = DateTime.new( current_year, current_month, reminder_day, reminder_hour, reminder_minute, 00, timezone )
                 else #Set Reminder for next month
-                    reminder_datetime = DateTime.new( current_year, current_month, reminder_day, reminder_hour, reminder_minute, 00 ).next_month
+                    reminder_datetime = DateTime.new( current_year, current_month, reminder_day, reminder_hour, reminder_minute, 00, timezone ).next_month
                 end
 
             else #Reminder day exceeds the number of days in the current month
-                reminder_datetime = DateTime.new( current_year, current_month, days_in_month[ current_month ], reminder_hour, reminder_minute, 00 ) #Fallback to last day
+                reminder_datetime = DateTime.new( current_year, current_month, days_in_month[ current_month ], reminder_hour, reminder_minute, 00, timezone ) #Fallback to last day
             end
 
         else #Start counting from the end of the month
@@ -65,15 +65,15 @@ module RemindersHelper
                 remaining_month_days = days_in_month[ current_month ] - current_day + 1 #Including the current day
 
                 if reminder_minute > current_minute + 10 || reminder_hour > current_hour || reminder_day <= remaining_month_days #Set Reminder for this month (At least a 10 minute headstart for the job to run)
-                    reminder_datetime = DateTime.new( current_year, current_month, reverse_day, reminder_hour, reminder_minute, 00 )
+                    reminder_datetime = DateTime.new( current_year, current_month, reverse_day, reminder_hour, reminder_minute, 00, timezone )
                 else #Set Reminder for next month
-                    reminder_datetime = DateTime.new( current_year, current_month, reverse_day, reminder_hour, reminder_minute, 00 ).next_month
+                    reminder_datetime = DateTime.new( current_year, current_month, reverse_day, reminder_hour, reminder_minute, 00, timezone ).next_month
                 end
 
             else #Reminder day exceeds the number of days in the current month
                 max_reverse_day = days_in_month[ current_month ] * -1
 
-                reminder_datetime = DateTime.new( current_year, current_month, max_reverse_day, reminder_hour, reminder_minute, 00 ) # Fallback to last reverse day
+                reminder_datetime = DateTime.new( current_year, current_month, max_reverse_day, reminder_hour, reminder_minute, 00, timezone ) # Fallback to last reverse day
             end
 
         end
