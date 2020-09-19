@@ -12,8 +12,8 @@ default: &default
 development:
   <<: *default
   database: reminder_app_dev
-  user: postgres
-  password: root
+  user: <%= ENV["DB_USR"] %>
+  password: <%= ENV["DB_PWD"] %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -21,11 +21,11 @@ development:
 test:
   <<: *default
   database: reminder_app_test
-  user: postgres
-  password: root
+  user: <%= ENV["DB_USR"] %>
+  password: <%= ENV["DB_PWD"] %>
 
 production:
   <<: *default
   database: reminder_app_production
-  user: postgres
-  password: root
+  user: <%= ENV["DB_USR"] %>
+  password: <%= ENV["DB_PWD"] %>
