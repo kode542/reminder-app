@@ -1,6 +1,6 @@
 class ReminderMailer < ApplicationMailer
 
-    default from: 'notifications@example.com'
+    default from: 'app184910795@heroku.com'
 
     def reminder_expires(title, description, date, email_to)
         @title = title

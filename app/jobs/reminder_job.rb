@@ -1,11 +1,12 @@
 class ReminderJob < ApplicationJob
 
-  after_perform do |job|
-    # invoke another job at your time of choice
-    self.class.set(:wait => 5.minutes).perform_later()
+  def perform
+    reschedule_job
+
+    reminder_job_logic
   end
 
-  def perform()
+  def reminder_job_logic
     # search db for dates within a timeframe of 5 minutes
     reminders = Reminder.where("date >= ? AND date <= ?", DateTime.now, (DateTime.now + 10.minutes))
 
@@ -28,5 +29,10 @@ class ReminderJob < ApplicationJob
 
     end
   end
+
+  def reschedule_job
+    self.class.set(wait: 5.minutes).perform_later
+  end
+
 
 end
