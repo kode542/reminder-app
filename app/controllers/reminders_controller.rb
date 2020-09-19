@@ -31,8 +31,6 @@ class RemindersController < ApplicationController
     Rails.logger.debug("My object: #{new_params}")
     @reminder = current_user.reminders.new(new_params)
 
-    ReminderJob.perform_now(reminder_params["title"], reminder_params["description"], reminder_date, current_user.email)
-
     respond_to do |format|
       if @reminder.save
         format.html { redirect_to @reminder, notice: 'Reminder was successfully created.' }
