@@ -21,9 +21,9 @@ class ReminderJob < ApplicationJob
           # Format the next date
           user_selection = {
             :timezone => reminder.timezone,
-            :day_selection => reminder.day,
-            :hour_selection => reminder.hour,
-            :minute_selection => reminder.minute,
+            :day_selection => reminder.day_selection,
+            :hour_selection => reminder.hour_selection,
+            :minute_selection => reminder.minute_selection,
             :month_selection => reminder.month_selection
           }
 
