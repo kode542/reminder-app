@@ -35,7 +35,6 @@ class RemindersController < ApplicationController
       :day_selection => reminder_params[:day_selection],
       :hour_selection => reminder_params[:hour_selection],
       :minute_selection => reminder_params[:minute_selection],
-      :timezone => reminder_params[:timezone],
       :date => reminder_date
     }
 
@@ -84,6 +83,6 @@ class RemindersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def reminder_params
-      params.fetch(:reminder, {}).permit(:title, :description, :month_selection, :day_selection, :hour_selection, :minute_selection, :timezone)
+      params.fetch(:reminder, {}).permit(:title, :description, :month_selection, :day_selection, :hour_selection, :minute_selection)
     end
 end

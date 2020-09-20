@@ -17,12 +17,11 @@ class ReminderJob < ApplicationJob
         date = reminder.date
         timezone = reminder.timezone
 
-        if date >= Time.now.in_time_zone(timezone) && date <= Time.now.in_time_zone(timezone) + 5.minutes
+        if date >= Time.now && date <= Time.now + 5.minutes
           ReminderMailer.expires(reminder.title, reminder.description, reminder.date, reminder.user.email).deliver_later
 
           # Format the next date
           user_selection = {
-            :timezone => reminder.timezone,
             :day_selection => reminder.day_selection,
             :hour_selection => reminder.hour_selection,
             :minute_selection => reminder.minute_selection,
