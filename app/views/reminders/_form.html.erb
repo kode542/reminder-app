@@ -45,7 +45,7 @@
       </div>
 
       <div class="uk-margin-top">
-        <%= f.label :minute_selection %><div class="uk-margin-small-left" uk-icon="info" uk-tooltip="title: The shortest reminder you can set is 10 minutes from now"></div><br />
+        <%= f.label :minute_selection %><div class="uk-margin-small-left" uk-icon="info" uk-tooltip="title: The shortest reminder you can set is 10 minutes from now<br><br>NOTICE: Timezone is UTC"></div><br />
         <%= f.select :minute_selection, options_for_minutes, { :prompt => 'Select minute' }, class: "uk-select uk-margin-small-top" %>
       </div>
     </div>
