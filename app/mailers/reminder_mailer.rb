@@ -2,12 +2,12 @@ class ReminderMailer < ApplicationMailer
 
     default from: 'app184910795@heroku.com'
 
-    def reminder_created(title, email_to)
+    def created(title, email_to)
         @title = title
         mail(to: email_to, subject: "Your #{@title} reminder, the time has come")
     end
 
-    def reminder_expires(title, description, date, email_to)
+    def expires(title, description, date, email_to)
         @title = title
         @description = description
         @date = date
