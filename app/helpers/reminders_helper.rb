@@ -25,7 +25,7 @@ module RemindersHelper
 
     def format_date( params )
         # Set Reminder timezone
-        timezone = TimeZone.new(params[ :timezone ]).formatted_offset
+        timezone = params[ :timezone ]
 
         days_in_month = Time::COMMON_YEAR_DAYS_IN_MONTH
 

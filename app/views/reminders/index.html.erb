@@ -12,6 +12,9 @@
   <tbody>
     <% @reminders.each do |reminder| %>
       <tr>
+        <td><%= reminder.title %></td>
+        <td><%= reminder.date %></td>
+
         <td><%= link_to 'Show', reminder %></td>
         <td><%= link_to 'Edit', edit_reminder_path(reminder) %></td>
         <td><%= link_to 'Destroy', reminder, method: :delete, data: { confirm: 'Are you sure?' } %></td>
