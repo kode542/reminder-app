@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_19_190858) do
+ActiveRecord::Schema.define(version: 2020_09_20_092212) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,10 +22,10 @@ ActiveRecord::Schema.define(version: 2020_09_19_190858) do
     t.datetime "date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "start_from"
-    t.integer "day"
-    t.string "hour"
-    t.string "minute"
+    t.string "month_selection"
+    t.integer "day_selection"
+    t.string "hour_selection"
+    t.string "minute_selection"
     t.string "timezone"
     t.index ["user_id"], name: "index_reminders_on_user_id"
   end

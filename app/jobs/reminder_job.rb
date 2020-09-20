@@ -8,31 +8,35 @@ class ReminderJob < ApplicationJob
 
   def reminder_job_logic
     # search db for dates within a timeframe of 5 minutes
-    reminders = Reminder.where("date >= ? AND date <= ?", DateTime.now, (DateTime.now + 10.minutes)) rescue nil
+    reminders = Reminder.where("date >= ? AND date <= ?", Time.now, (Time.now + 1.day)) rescue nil
 
-    reminders do |reminder|
-      ReminderMailer.reminder_expires(reminder.title, reminder.description, reminder.date, reminder.user.email).deliver
+    if reminders
+      reminders.each do |reminder|
+        date = reminder.date
+        timezone = reminder.timezone
 
-      # Format the next date
-      user_selection = {
-        :timezone => reminder.timezone,
-        :day_selection => reminder.day,
-        :hour_selection => reminder.hour,
-        :minute_selection => reminder.minute,
-        :month_selection => reminder.start_from
-      }
+        if date >= Time.now.in_time_zone(timezone) && date <= Time.now.in_time_zone(timezone) + 10.minutes
+          ReminderMailer.reminder_expires(reminder.title, reminder.description, reminder.date, reminder.user.email).deliver
 
-      new_date = format_date( user_selection )
+          # Format the next date
+          user_selection = {
+            :timezone => reminder.timezone,
+            :day_selection => reminder.day,
+            :hour_selection => reminder.hour,
+            :minute_selection => reminder.minute,
+            :month_selection => reminder.month_selection
+          }
 
-      reminder.date = new_date
-      reminder.save
+          new_date = format_date( user_selection )
 
+          reminder.date = new_date
+          reminder.save
+        end
+      end
     end
   end
 
   def reschedule_job
     self.class.set(wait: 5.minutes).perform_later
   end
-
-
 end
