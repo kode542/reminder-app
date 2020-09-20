@@ -1,6 +1,6 @@
 class ReminderMailer < ApplicationMailer
 
-    default from: 'app184910795@heroku.com'
+    default from: 'postmaster@sandboxdb966cca236c49d499292f3fc4596abf.mailgun.org'
 
     def created(title, email_to)
         @title = title
