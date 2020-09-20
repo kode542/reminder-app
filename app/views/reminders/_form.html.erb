@@ -41,11 +41,6 @@
     <%= f.select :minute_selection, options_for_minutes, { :prompt => 'Select minute' }, class: "uk-select" %>
   </div>
 
-  <div class="uk-margin-top">
-    <%= f.label :timezone %><br />
-    <%= f.select :timezone, options_for_timezones, { :prompt => 'Select timezone' }, class: "uk-select" %>
-  </div>
-
 
   <div class="actions uk-margin-top">
     <%= f.submit 'Submit', class: "uk-button uk-button-primary" %>
