@@ -4,7 +4,7 @@ class ReminderMailer < ApplicationMailer
 
     def created(title, email_to)
         @title = title
-        mail(to: email_to, subject: "Your #{@title} reminder, the time has come")
+        mail(to: email_to, subject: "Your #{@title} reminder has been created")
     end
 
     def expires(title, description, date, email_to)

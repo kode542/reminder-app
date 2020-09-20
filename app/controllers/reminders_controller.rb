@@ -10,6 +10,7 @@ class RemindersController < ApplicationController
   # GET /reminders/1
   # GET /reminders/1.json
   def show
+    @reminder = Reminder.find(params[:id])
   end
 
   # GET /reminders/new

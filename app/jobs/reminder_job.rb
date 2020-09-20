@@ -16,7 +16,8 @@ class ReminderJob < ApplicationJob
         timezone = reminder.timezone
 
         if date >= DateTime.current && date <= DateTime.current + 5.minutes
-          ReminderMailer.expires(reminder.title, reminder.description, reminder.date, reminder.user.email).deliver_later
+          ReminderMailer.expires(reminder.title, reminder.description, reminder.date, reminder.user.email).deliver_now
+
 
           # Format the next date
           user_selection = {
