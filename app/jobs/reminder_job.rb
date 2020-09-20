@@ -8,7 +8,7 @@ class ReminderJob < ApplicationJob
 
   def reminder_job_logic
     # search db for dates within a timeframe of 5 minutes
-    reminders = Reminder.where("date >= ? AND date <= ?", Time.now, (Time.now + 5.hours)) rescue nil
+    reminders = Reminder.where("date >= ? AND date <= ?", Time.now, (Time.now + ENV['HOURS'].to_i.hours)) rescue nil
 
     logger.debug( Reminder.where("date >= ? AND date <= ?", Time.now, (Time.now + 5.hours)) )
 
