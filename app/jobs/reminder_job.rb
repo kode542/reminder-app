@@ -8,14 +8,14 @@ class ReminderJob < ApplicationJob
 
   def reminder_job_logic
     # search db for dates within a timeframe of 5 minutes
-    reminders = Reminder.where("date >= ? AND date <= ?", DateTime.now, (DateTime.now + ENV['HOURS'].to_i.hours)) rescue nil
+    reminders = Reminder.where("date >= ? AND date <= ?", DateTime.current, (DateTime.current + ENV['HOURS'].to_i.hours)) rescue nil
 
     if reminders
       reminders.each do |reminder|
         date = reminder.date
         timezone = reminder.timezone
 
-        if date >= DateTime.now && date <= DateTime.now + 5.minutes
+        if date >= DateTime.current && date <= DateTime.current + 5.minutes
           ReminderMailer.expires(reminder.title, reminder.description, reminder.date, reminder.user.email).deliver_later
 
           # Format the next date
