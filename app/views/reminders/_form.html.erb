@@ -11,39 +11,53 @@
     </div>
   <% end %>
 
-  <div>
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
+  <div uk-grid>
+    <div class="uk-margin-top">
+      <div>
+        <%= f.label :title %><br />
+        <%= f.text_field :title, class: "uk-input uk-margin-small-top" %>
+      </div>
+
+      <div class="uk-margin-top">
+        <%= f.label :description %><br />
+        <%= f.text_area :description, class: "uk-textarea uk-margin-small-top" %>
+      </div>
+    </div>
+
+    <div class="uk-margin-top">
+      <div>
+        <%= f.label :day_selection %><br />
+        <%= f.select :day_selection, options_for_days, { :prompt => 'Select day' }, class: "uk-select uk-margin-small-top" %>
+      </div>
+
+      <div class="uk-margin-top">
+        <%= f.label :hour_selection %><br />
+        <%= f.select :hour_selection, options_for_hours, { :prompt => 'Select hour' }, class: "uk-select uk-margin-small-top" %>
+      </div>
+
+
+    </div>
+
+    <div class="uk-margin-top">
+      <div>
+        <%= f.label :month_selection %><div class="uk-margin-small-left" uk-icon="info" uk-tooltip="title: Day of the month option starts counting from the beginning of the month<br><br>Last day of the month option starts counting from the end of the month backwards"></div><br />
+        <%= f.select :month_selection, options_for_months, { :prompt => 'Select month' }, class: "uk-select uk-margin-small-top" %>
+      </div>
+
+      <div class="uk-margin-top">
+        <%= f.label :minute_selection %><div class="uk-margin-small-left" uk-icon="info" uk-tooltip="title: The shortest reminder you can set is 10 minutes from now"></div><br />
+        <%= f.select :minute_selection, options_for_minutes, { :prompt => 'Select minute' }, class: "uk-select uk-margin-small-top" %>
+      </div>
+    </div>
+
+
   </div>
 
-  <div class="uk-margin-top">
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
-  </div>
 
-  <div class="uk-margin-top">
-    <%= f.label :month_selection %><br />
-    <%= f.select :month_selection, options_for_months, { :prompt => 'Select month' }, class: "uk-select" %>
-  </div>
-
-  <div class="uk-margin-top">
-    <%= f.label :day_selection %><br />
-    <%= f.select :day_selection, options_for_days, { :prompt => 'Select day' }, class: "uk-select" %>
-  </div>
-
-  <div class="uk-margin-top">
-    <%= f.label :hour_selection %><br />
-    <%= f.select :hour_selection, options_for_hours, { :prompt => 'Select hour' }, class: "uk-select" %>
-  </div>
-
-  <div class="uk-margin-top">
-    <%= f.label :minute_selection %><br />
-    <%= f.select :minute_selection, options_for_minutes, { :prompt => 'Select minute' }, class: "uk-select" %>
-  </div>
-
-
-  <div class="actions uk-margin-top">
+  <div class="actions uk-margin-top uk-text-center">
     <%= f.submit 'Submit', class: "uk-button uk-button-primary" %>
+    <%= link_to 'Back', reminders_path, :class => "uk-button uk-button-default" %>
   </div>
+
 <% end %>
 

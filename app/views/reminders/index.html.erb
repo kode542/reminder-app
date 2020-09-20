@@ -8,6 +8,8 @@
     <tr>
       <th>Title</th>
       <th>Date</th>
+      <th>Description</th>
+      <th>Actions</th>
     </tr>
   </thead>
 
@@ -16,10 +18,12 @@
       <tr>
         <td><%= reminder.title %></td>
         <td><%= reminder.date %></td>
+        <td><%= reminder.description %></td>
 
-        <td><%= link_to ' ', reminder, {'uk-icon' => 'icon: plus', 'alt' => 'Show'} %>
-        <%= link_to ' ', edit_reminder_path(reminder), {'uk-icon' => 'icon: pencil', 'alt' => 'Edit'} %>
-        <%= link_to ' ', reminder, method: :delete, data: { confirm: 'Are you sure?' }, 'uk-icon' => 'icon: trash' %></td>
+        <td>
+          <%= link_to ' ', edit_reminder_path(reminder), {'uk-icon' => 'icon: pencil', 'alt' => 'Edit'} %>
+          <%= link_to ' ', reminder, method: :delete, data: { confirm: 'Are you sure?' }, 'uk-icon' => 'icon: trash' %>
+        </td>
       </tr>
     <% end %>
   </tbody>
